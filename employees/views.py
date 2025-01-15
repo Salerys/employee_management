@@ -244,7 +244,7 @@ def delete_employee(request, emp_id):
     # Check if the employee's role is ADM
     if job_details.role == 'ADM' and self_job_details.role != 'ADM':
         messages.error(request, "You cannot delete an Admin employee.")
-        return redirect('main:list')
+        return redirect('list')
 
     if request.method == 'POST':
         # Get the User object
@@ -255,7 +255,7 @@ def delete_employee(request, emp_id):
         personal_details.delete()
 
         messages.success(request, 'Employee deleted successfully.')
-        return redirect('main:list')  # Redirect to the employee list view
+        return redirect('list')  # Redirect to the employee list view
 
     full_name = f"{personal_details.first_name} {personal_details.last_name}"
     department = dict(JobDetails.DEPARTMENT_CHOICES).get(
