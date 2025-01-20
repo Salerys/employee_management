@@ -46,7 +46,9 @@ class JobDetails(models.Model):
     job_position = models.CharField(max_length=255)
     performance = models.ForeignKey(Performance, on_delete=models.CASCADE)
     hire_date = models.DateField(default=datetime.date.today)
-    role = models.CharField(max_length=4, choices=ROLE_CHOICES, null=True)
+    role = models.CharField(
+        max_length=4, choices=ROLE_CHOICES, default='EMP', null=True
+    )
 
     def __str__(self):
         return f"Job in {self.department} - {self.job_position}"

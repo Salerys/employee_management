@@ -92,3 +92,14 @@ class EditEmployeeForm(forms.ModelForm):
         widgets = {
             'hire_date': forms.DateInput(attrs={'type': 'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        # Capture the current user's role (passed from the view)
+        current_user_role = kwargs.pop('current_user_role', None)
+        super().__init__(*args, **kwargs)
+
+        # Dynamically filter the role choices
+        if current_user_role != 'ADM':  # Non-admin users
+            self.fields['role'].choices = [
+                choice for choice in JobDetails.ROLE_CHOICES if choice[0] != 'ADM'
+            ]
